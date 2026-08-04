@@ -1,0 +1,9 @@
+{
+  "name": "unity-sox",
+  "version": "0.1.0",
+  "description": "Unity SOX compliance toolkit for Salesforce: quarterly access reviews (User/Profile + PermissionSetAssignment) and Setup Audit Trail change-management review — script-driven, evidence-based, and audit-ready.",
+  "author": { "name": "Unity Business Systems" },
+  "homepage": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
+  "repository": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
+  "keywords": ["salesforce", "sox", "compliance", "audit", "access-review", "change-management", "permission-set"]
+}
