@@ -10,6 +10,15 @@
       "homepage": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
       "category": "productivity",
       "keywords": ["salesforce", "bsa", "flow", "slds", "tdd", "qa", "presentations", "project-management"]
+    },
+    {
+      "name": "unity-sox",
+      "source": "./plugins/unity-sox",
+      "description": "Unity SOX compliance toolkit for Salesforce — quarterly access reviews (User/Profile + PermissionSetAssignment) and Setup Audit Trail change-management review. Script-driven, evidence-based, audit-ready.",
+      "author": { "name": "Unity Business Systems" },
+      "homepage": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
+      "category": "productivity",
+      "keywords": ["salesforce", "sox", "compliance", "audit", "access-review", "change-management"]
     }
   ]
 }
