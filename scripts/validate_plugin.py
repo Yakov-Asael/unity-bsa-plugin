@@ -54,11 +54,21 @@ def validate_marketplace():
         return
     if "name" not in mp:
         err("marketplace.json missing `name`")
+    root_readme = ""
+    if os.path.isfile("README.md"):
+        with open("README.md", encoding="utf-8") as f:
+            root_readme = f.read()
+    else:
+        err("root README.md is missing")
     for entry in mp.get("plugins", []):
+        name = entry.get("name", "")
         src = entry.get("source", "")
         rel = src[2:] if src.startswith("./") else src
         if not os.path.isfile(os.path.join(rel, ".claude-plugin", "plugin.json")):
-            err(f"marketplace plugin '{entry.get('name')}' source has no plugin.json: {src}")
+            err(f"marketplace plugin '{name}' source has no plugin.json: {src}")
+        if name and name not in root_readme:
+            err(f"marketplace plugin '{name}' is not listed in the root README.md "
+                f"(add it to the 'What's inside' table so the marketplace README stays current)")
 
 
 def validate_plugin(plugin_dir):

@@ -9,6 +9,7 @@ A Claude Code plugin marketplace hosting **`unity-bsa`** — the Unity Business 
 | Plugin | Description |
 | --- | --- |
 | [`unity-bsa`](./plugins/unity-bsa) | Salesforce BSA toolkit — 8 skills covering the full delivery lifecycle, each enforcing Unity's real standards. |
+| [`unity-sox`](./plugins/unity-sox) | SOX compliance toolkit — quarterly access reviews (User/Profile + PermissionSetAssignment) and Setup Audit Trail change-management review. Script-driven and audit-ready. |
 
 ## Install
 
@@ -23,6 +24,7 @@ The team runs in the Claude desktop/web app. Install the plugin file directly:
 ```
 /plugin marketplace add Yakov-Asael/unity-bsa-marketplace
 /plugin install unity-bsa
+/plugin install unity-sox
 ```
 This repo is **public**, so the marketplace path works without any auth — and you get updates with a single **Sync** (no uninstall/re-upload).
 
