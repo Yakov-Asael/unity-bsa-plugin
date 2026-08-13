@@ -1,0 +1,57 @@
+{
+  "_comment": "Everything environment- or scope-specific lives here. See references/extending.md before changing it.",
+
+  "org": {
+    "lightning_host": "ironsrc.lightning.force.com",
+    "my_host": "ironsrc.my.salesforce.com",
+    "setup_host": "ironsrc.my.salesforce-setup.com",
+    "inspector_extension_id": "hpijlohoihegkfehhibggnkbjhoemldh"
+  },
+
+  "custom_setting": {
+    "label": "Dynamic Approval Process",
+    "_comment": "The two Setup pages take DIFFERENT identifiers and are not interchangeable. viewCustomSettings wants the object id; listCustomSettingsData wants the key prefix. Passing the object id to the list page renders 'Invalid Custom Setting id'.",
+    "object_id": "01Ib0000000gdtA",
+    "key_prefix": "a1X"
+  },
+
+  "objects": [
+    {
+      "key": "bill",
+      "display": "Bills",
+      "sobject": "Bill__c",
+      "report_id": "00OQv000008wGFtMAM",
+      "report_name": "Bills Approver Matrix",
+      "approvers": ["Eyal Kaner", "Yathish Rai"]
+    },
+    {
+      "key": "invoice",
+      "display": "Invoice",
+      "sobject": "Invoice__c",
+      "report_id": "00OQv000008wGB3MAM",
+      "report_name": "Invoices Approver Matrix",
+      "approvers": ["Eyal Kaner", "Yathish Rai"]
+    },
+    {
+      "key": "dispute",
+      "display": "Dispute",
+      "sobject": "Dispute__c",
+      "report_id": "00OQv000008wGRBMA2",
+      "report_name": "Disputes Approver Matrix",
+      "approvers": ["Tal Rahamim", "Eyal Kaner"]
+    },
+    {
+      "key": "credit",
+      "display": "Credit",
+      "sobject": "Credit_Check__c",
+      "report_id": "00OQv000008wGarMAE",
+      "report_name": "Credits Approver Matrix",
+      "approvers": ["Eyal Kaner"]
+    }
+  ],
+
+  "limits": {
+    "_comment": "Max seconds allowed between a report's screenshot and its CSV export. The screenshot is the evidence that Results is what the report actually showed, so the two must describe the same moment.",
+    "max_screenshot_export_gap_seconds": 180
+  }
+}
