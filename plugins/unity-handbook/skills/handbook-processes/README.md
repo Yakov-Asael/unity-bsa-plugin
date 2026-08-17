@@ -2,16 +2,40 @@
 
 # handbook-processes
 
-**Answers questions about the twelve Salesforce processes** documented in Unity's BSA Process Handbook — how one works, why it broke, who approves what, and who owns it now.
+**Answers questions about the twelve Salesforce processes** documented in Unity's BSA Process Handbook — how one works, why it broke, who approves what, and who owns it now. Built to carry ticket work: a reported symptom routes to the process that owns it.
 
 ## How it works
 
-- **One question → one reference file.** A routing table maps the ask to exactly one of twelve self-contained files. Only that file is read, which is what keeps answers fast.
+- **One question → one reference file.** Routing is by **topic** when the ask names a process, and by **symptom** when it doesn't — which is how most tickets arrive. Only the routed file is read, which is what keeps answers fast.
 - **Values verbatim.** Thresholds, field names, picklist values, approver names and table rows are reproduced exactly — full tables, every row, never summarised into prose.
 - **No gap-filling.** If the file doesn't cover it, the skill says so and names the owner to ask. General Salesforce knowledge is either withheld or labelled explicitly as inference.
 - **Contradictions surfaced.** Where a file states a value two ways, both are given and flagged as disagreeing, with a pointer to confirm in Setup.
 - **Known gaps flagged.** Missing PRDs, known defects, live issues and stale permissions are surfaced when they bear on the question, rather than letting the answer read cleaner than reality.
 - **No section numbers.** The source's `§n` pointers are unreliable — several reference renumbered or non-existent sections — so they're stripped rather than cited.
+
+## Modes
+
+| Mode | When | Shape |
+| --- | --- | --- |
+| **Explain** (default) | "How does X work?", "Why does Y happen?" | An explanation, at whatever length the mechanism needs. |
+| **Ticket** | A problem report — support ticket, escalation, "X is broken" | Cause → the specific check → the fix **and who can perform it** → known defect → Next Step. |
+| **Triage** | Several tickets, or one spanning processes | Which process owns each, and which are ambiguous with what would disambiguate them. |
+
+### Ticket mode — the three hard rules
+
+A ticket reply is read as a commitment, so:
+
+1. **Never promise a date or a cycle from the handbook.** Batch schedules are org configuration and appear nowhere in these files. Timing questions hand off to [`handbook-code-lookup`](../handbook-code-lookup) for the live cron, its timezone, and whether the job is running or paused. Never infer a schedule from the fact that a batch exists.
+2. **Never paste an unverified threshold, approver name or permission grant** into a customer- or stakeholder-facing reply — verify it, or label it as the documented August 2026 position.
+3. **Say who can act.** The files consistently separate what a requester can self-serve from what needs Business Operations or the SFDC team. Telling someone to do what they have no permission to do wastes a round trip.
+
+## Symptom routing
+
+Tickets don't arrive as topics. `references/symptom-index.md` maps roughly 100 real user-reported symptoms — taken verbatim from the FAQ and Troubleshooting sections of the twelve files — to the file and the section that answers them.
+
+It deliberately **contains no answers**, only pointers, so there is no second copy to drift. It also records where each file keeps its symptom content, because the shape differs: most use a table with a verbatim user quote in column 1, four (`customer-community`, `deals`, `gps`, `csat`) use bold quoted headings, `bills-invoice-sync` is symptom-organised end to end, and `credit-check-auto-approval` has no troubleshooting section at all — its symptoms are answered from the decision-order sections.
+
+Routing is by section **title**, never number: the source's `§n` pointers reference renumbered and non-existent sections.
 
 ## Coverage and routing
 
@@ -51,5 +75,7 @@ handbook, process handbook, approver matrix, dispute, credit note, C360, GDRC, p
 Answers from the handbook only. Org verification and reference-file updates are [`handbook-refresh`](../handbook-refresh); mechanisms that live in Apex or a scheduled job — batch run times, hardcoded thresholds — are [`handbook-code-lookup`](../handbook-code-lookup). Designing automation, reviewing Flow XML and writing PRDs belong to the `unity-bsa` plugin; SOX controls belong to `unity-sox`; outbound stakeholder comms belong to `unity-comms`.
 
 ## References
+
+`references/symptom-index.md` — symptom → file → section routing for ticket work, plus the cross-process table, timing-question handoffs, and the pre-send checklist for a ticket reply.
 
 `references/` — twelve process files, one per tab: `dispute.md`, `handover.md`, `connect-360.md`, `game-design-revenue-consultancy.md`, `credit-check-auto-approval.md`, `customer-community.md`, `knowledge.md`, `csat.md`, `deals.md`, `pipeline-summary.md`, `gps.md`, `bills-invoice-sync.md`. Each preserves its original `> Source:` provenance header and names its business and technical owner.

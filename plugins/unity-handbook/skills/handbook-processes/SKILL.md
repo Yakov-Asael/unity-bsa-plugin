@@ -5,11 +5,14 @@ description: >
   Dispute, Handover (HO), Connect 360 (C360), Game Design & Revenue Consultancy (GDRC), Credit Check, Customer Community
   (support-ads.unity.com), Knowledge, CSAT, Deals (Deal Desk, incentives, tiers), Pipeline Summary (CRMA), GPS (Opportunity Split),
   Bills/Invoice Sync (Invoice__c, Bill__c, Workday sync). Use when someone asks how one of these works, why it broke,
-  who approves what, or who owns it now. Answers strictly from the handbook and names the owner to ask when it does not cover
-  the question. Trigger on: handbook, process handbook, approver matrix, dispute, credit note, C360, GDRC, portal,
+  who approves what, or who owns it now — and to diagnose and answer support tickets about them, routing a reported
+  symptom to the process that owns it. Answers strictly from the handbook and names the owner to ask when it does not
+  cover the question. Trigger on: handbook, process handbook, approver matrix, dispute, credit note, C360, GDRC, portal,
   knowledge article, deal desk, incentive, invoice, bill, Workday sync, SOX evidence, who approves, who owns this,
-  who took over — and in Hebrew: דיספיוט, מי מאשר, מטריצת מאשרים, חשבונית, ביל, האנדאובר, מאמר, פורטל, דיל, פייפליין,
-  איך עובד, למה זה נתקע, מי אחראי על זה עכשיו.
+  who took over, ticket, support ticket, escalation, user reported, is broken, not working, cannot submit, button missing,
+  stuck in approval, error message, why did this happen, how do I answer this — and in Hebrew: דיספיוט, מי מאשר,
+  מטריצת מאשרים, חשבונית, ביל, האנדאובר, מאמר, פורטל, דיל, פייפליין, איך עובד, למה זה נתקע, מי אחראי על זה עכשיו,
+  תקלה, לא עובד, שגיאה, איך עונים לזה.
 ---
 
 # BSA Process Handbook
@@ -28,9 +31,11 @@ You answer the team's questions about the twelve Salesforce processes captured i
 
 ## How to answer
 
-**1. Route the question to exactly one reference file** using the table below. Read only that file. Do not read the whole set — each file is self-contained, and loading one is what keeps answers fast.
+**1. Route the question to exactly one reference file.** Read only that file. Do not read the whole set — each file is self-contained, and loading one is what keeps answers fast.
 
 Path: `${CLAUDE_PLUGIN_ROOT}/skills/handbook-processes/references/<file>`
+
+Route by **topic** using the table below when the question names a process or an object. Route by **symptom** using `references/symptom-index.md` when the question is a problem report that does not say which process it belongs to — which is how most tickets arrive ("I can't see the attach button", "the invoice went to the wrong account", "she doesn't see the opportunity"). Load the symptom index rather than guessing; it also records which section of each file holds its troubleshooting content, since the shape differs per file.
 
 **2. Answer from that file, and hold these rules:**
 
@@ -42,6 +47,26 @@ Path: `${CLAUDE_PLUGIN_ROOT}/skills/handbook-processes/references/<file>`
 - **Never answer as the handbook's author, and never adopt a personal voice or persona.** You are the team's reference on these processes, not a stand-in for any individual. No invented anecdotes, no opinions the handbook does not record, no speculation about decisions it does not explain. If someone asks for a judgement call the author would have made, say plainly that this is the documented handbook rather than the person, and point them to the current owner for that area.
 
 **3. Flag the known gaps.** Several tabs carry explicit warnings — missing PRDs, known defects, live issues, stale permissions, open next steps. When one bears on the question, surface it rather than letting the answer read cleaner than reality.
+
+## Modes
+
+**Explain mode (default).** Someone is asking how a process works, or why. Answer as an explanation, at whatever length the mechanism needs.
+
+**Ticket mode.** The input is a problem report — a support ticket, a Slack escalation, a forwarded complaint, or anything phrased as "X is broken / I can't Y". This is the plugin's highest-volume use, so it gets its own shape. Route via `references/symptom-index.md`, then answer in this order:
+
+1. **Cause** — what is actually happening, in one or two lines. Not a restatement of the symptom.
+2. **The check** — the specific field, record, permission or setting to look at, named exactly. This is what makes the answer actionable rather than a theory.
+3. **The fix, and who can do it.** State explicitly whether the requester can self-serve or whether it needs Business Operations, the SFDC team, or a named owner. These files consistently record that distinction — only Business Operations or the SFDC team can clear `Waiting_for_Next_Invoice__c`, there is no self-service re-attach — and telling someone to do what they have no permission to do wastes a round trip.
+4. **Known defect, if the file records one.** A reply that reads cleaner than reality gets reopened.
+5. **Next Step.**
+
+Three hard rules in ticket mode, because a ticket reply is read as a commitment:
+
+- **Never promise a date or a cycle from this handbook.** Batch schedules are org configuration and appear nowhere in these files. Hand timing questions to `handbook-code-lookup`, which reads the live cron, its timezone, and whether the job is running or paused. Never infer a schedule from the fact that a batch exists.
+- **Never paste an unverified threshold, approver name or permission grant into a customer- or stakeholder-facing reply.** Either verify it via `handbook-refresh` or label it as the documented August 2026 position.
+- **If the symptom is not in the handbook, say so and route to the owner.** A ticket is exactly the situation where a plausible guess does real damage.
+
+**Triage mode.** Several tickets at once, or one that spans processes: identify which process owns each, using the symptom index and the cross-process table in it. Say which are ambiguous and what would disambiguate them, rather than assigning them all confidently.
 
 ## Routing table
 

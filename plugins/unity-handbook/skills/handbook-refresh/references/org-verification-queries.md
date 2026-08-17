@@ -143,3 +143,11 @@ Spot-checks run while building this skill, recorded as the baseline for the next
 | `Sales_CRMA_Admin__c` is a User field | ✅ Confirmed on `User` |
 | `Dispute__c` record types | 5 active: `Demand_dispute`, `Fraud_dispute`, `SuperSonic`, `Supply_dispute`, `Video_Dispute` |
 | Named owners/successors still active | ✅ All active — several with duplicate User records, as described above |
+
+**Known-correct exceptions — do not report these as findings.**
+
+| Person | State | Why it is expected |
+|---|---|---|
+| Dror Diamant | Two active User records | Confirmed by the handbook owner: **employed until 10 September 2026.** Active is correct until then. |
+
+**After 10 September 2026** this flips: if Dror Diamant's User records are still active, that *is* a finding — raise it with the SOX access-review owner, and expect every tab's `Technical owner: Dror Diamant → <successor>` line to need its outgoing half retired. Re-check this row on the first refresh after that date and update or remove it; a stale exception list is how a real exception gets waved through.
