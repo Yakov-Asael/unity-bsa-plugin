@@ -39,6 +39,8 @@ Quarterly is the floor, not the whole plan. **The rule that actually keeps it cu
 2. **Run the drift check** — invoke the `handbook-refresh` skill for the tabs in scope. It is read-only against Salesforce; it produces the drift report and proposed edits.
 3. **Resolve Tier 3 items with the named owner.** Do not guess a threshold, and do not carry a `NEEDS MANUAL CHECK` row forward silently two quarters in a row — escalate it instead.
 4. **Apply the edits** to the reference files. Preserve each file's `> Source:` provenance header and existing structure; edit values in place rather than restructuring the file.
+
+   **For a contradiction, annotate rather than overwrite.** Where the org disagrees with a sentence in the source, keep the original and append a `> **Verified <date>:**` blockquote beneath it stating the confirmed state and what changed. `handbook-processes` treats those notes as superseding the text above them, so the reader gets the correct answer while the original author's account stays intact. Reserve plain in-place edits for values that are simply stale (a renamed field, a changed picklist value) rather than contradicted.
 5. **Update the snapshot dates** — the tab's `**Date:**` line, and the snapshot date in `handbook-processes/SKILL.md` (two places: the *Staying honest about the source* section and the skill body intro). A refreshed file with a stale date makes the freshness caveat lie.
 6. **Record the baseline** — update the *Confirmed org state* table in `org-verification-queries.md` with the new date and results, so the next refresh has a diff to work against.
 7. **Validate:** `python3 scripts/validate_plugin.py`.

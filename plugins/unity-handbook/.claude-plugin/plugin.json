@@ -1,8 +1,10 @@
 {
   "name": "unity-handbook",
   "version": "0.1.0",
-  "description": "Unity BSA Process Handbook for Salesforce: answers questions about the twelve documented processes (Dispute, Handover, Connect 360, GDRC, Credit Check, Customer Community, Knowledge, CSAT, Deals, Pipeline Summary, GPS, Bills/Invoice Sync) strictly from the handbook, and verifies it against the live org so it stays current.",
-  "author": { "name": "Unity Business Systems" },
+  "description": "Unity BSA Process Handbook for Salesforce: answers questions about the twelve documented processes (Dispute, Handover, Connect 360, GDRC, Credit Check, Customer Community, Knowledge, CSAT, Deals, Pipeline Summary, GPS, Bills/Invoice Sync) strictly from the handbook, verifies it against the live org so it stays current, and reads deployed Apex and job schedules when the answer was never in the document.",
+  "author": {
+    "name": "Unity Business Systems"
+  },
   "homepage": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
   "repository": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
   "keywords": [
@@ -28,6 +30,9 @@
     "opportunity-split",
     "workday-sync",
     "handover",
-    "drift-check"
+    "drift-check",
+    "apex",
+    "batch-schedule",
+    "code-lookup"
   ]
 }

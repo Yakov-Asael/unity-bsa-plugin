@@ -16,6 +16,7 @@
 | Tier | Claim class | Verdict strength |
 | --- | --- | --- |
 | **1 — Automated** | Flow existence and active state, approval processes, record types, object/field existence, picklist values, permission sets, custom permissions, whether named people are still active | Authoritative |
+| **1b — Automated via code** | Apex logic, hardcoded thresholds, trigger status, job cron expressions and paused/waiting state | Authoritative for deployed code (delegated to `handbook-code-lookup`) |
 | **2 — Partial** | Which object a flow runs on, trigger type, field types — the wiring, not the logic | Directional; states what wasn't confirmed |
 | **3 — Manual** | Thresholds and branch logic *inside* a flow, approval step counts, approver matrix rows, validation rule messages, email recipients, button visibility, ownership, live-issue notes | **Unverifiable here** — reported as `NEEDS MANUAL CHECK` |
 
@@ -41,7 +42,7 @@ refresh the handbook, update the handbook, is the handbook still accurate, handb
 
 ## Boundary
 
-Verification and proposed updates only. Process questions are [`handbook-processes`](../handbook-processes). Flow quality review and solution design belong to the `unity-bsa` plugin. This skill is **not a SOX control and produces no audit evidence** — access reviews, change-management review and the approver-matrix control belong to `unity-sox`; a drift check that surfaces an access exception hands it there. It does not edit the source Google Doc.
+Verification and proposed updates only. Process questions are [`handbook-processes`](../handbook-processes); reading Apex, triggers and cron schedules is [`handbook-code-lookup`](../handbook-code-lookup), whose Tier 1b findings fold into the drift report. Flow quality review and solution design belong to the `unity-bsa` plugin. This skill is **not a SOX control and produces no audit evidence** — access reviews, change-management review and the approver-matrix control belong to `unity-sox`; a drift check that surfaces an access exception hands it there. It does not edit the source Google Doc.
 
 ## References
 

@@ -48,10 +48,16 @@ Sort every claim you are checking into one of these, and never let a Tier 3 clai
 | Tier | Claim class | How | Verdict strength |
 |---|---|---|---|
 | **1 — Automated** | Flow existence + active state, approval processes, record types, object/field existence, picklist values, permission sets, custom permissions, named people still active | SOQL / `getObjectSchema` per the query catalogue | Authoritative |
+| **1b — Automated via code** | Anything in Apex or a schedule: batch logic, hardcoded thresholds and IDs, trigger status, **job cron expressions and paused/waiting state** | Readable from the org — `ApexClass.Body`, `ApexTrigger`, `CronTrigger`. Delegate to `handbook-code-lookup` rather than querying here | Authoritative for deployed code |
 | **2 — Partial** | Which object a flow runs on, trigger type, field types and help text, approval process target object | SOQL gives metadata but not behaviour — confirms the wiring, not the logic | Directional; state what you did *not* confirm |
-| **3 — Manual** | Thresholds and branch logic *inside* a flow, validation rule messages, email alert recipients, page layout and button visibility, LWC behaviour, business ownership, "known defect / live issue" notes | Not reachable by SOQL. Requires Setup, a metadata export, or asking the owner | **Unverifiable here** — report as `NEEDS MANUAL CHECK`, never as verified |
+| **3 — Manual** | Thresholds and branch logic *inside a flow*, approval step counts, approver matrix rows, validation rule messages, email alert recipients, page layout and button visibility, LWC behaviour, business ownership, "known defect / live issue" notes | Not reachable by SOQL. Requires Setup, the flow XML in the `SFDC-IS` repo, or asking the owner | **Unverifiable here** — report as `NEEDS MANUAL CHECK`, never as verified |
 
-The handbook's most business-critical content — approval thresholds, the approver matrix rows, the reduced-amount formula — is largely **Tier 3**. Be explicit about that: a report that verifies thirty flow names and stays silent on the thresholds implies a level of assurance you have not delivered.
+Two things follow from Tier 1b, and both change how a refresh should be run:
+
+- **A "not documented anywhere" claim is often just "not documented in prose".** Before recording a gap, check whether the answer is in Apex or a cron entry. The batch run times behind the Dispute tab's "waiting for next invoice/bill" flag were readable all along, and their absence from the handbook produced a wrong answer in real use.
+- **"Live issue" notes need the code checked, not just the flow.** The Dispute tab warned that `PE_Deduct_Add_dispute_to_invoice_or_bill` is inactive and implied nothing would attach. The flow is inactive — and two scheduled Apex jobs do the work and are live. Verifying only the flow would have confirmed a misleading warning as correct.
+
+The handbook's most business-critical remaining content — the approval thresholds and approver-matrix rows that live *inside flows* — is still **Tier 3**. Be explicit about that: a report that verifies thirty flow names and stays silent on the thresholds implies a level of assurance you have not delivered. Flow XML from the `SFDC-IS` repo would move this block into Tier 1b; see `handbook-code-lookup`.
 
 ## Drift report format
 
@@ -81,6 +87,7 @@ Therefore: query by `Name` or `Email`, return `IsActive` for **every** matching 
 ## Boundary
 
 - **This skill verifies and proposes; it does not answer process questions.** "How does a dispute reach an invoice?" belongs to `handbook-processes`. Come here only to check whether that answer is still true.
+- **It does not read Apex.** Reading deployed source, trigger bodies and cron schedules is `handbook-code-lookup`. Delegate Tier 1b checks to it and fold its findings into the drift report rather than querying code here.
 - **It does not review or design Salesforce configuration.** Flow quality review is `unity-flow-reviewer`; new solution design is `unity-tech-design` / `unity-sf-bsa`, both in the `unity-bsa` plugin.
 - **It is not a SOX control and produces no audit evidence.** Access reviews, change-management review and the approver-matrix control belong to the `unity-sox` plugin. If a drift check happens to surface an access exception, hand it there rather than treating it as evidence.
 - **It does not edit the source Google Doc.** The doc is the upstream narrative record; this skill proposes changes to the repo's reference files and flags when the doc has diverged.

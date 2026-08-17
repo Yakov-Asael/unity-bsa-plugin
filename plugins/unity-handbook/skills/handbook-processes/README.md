@@ -38,7 +38,9 @@ Always answers in **English**, per Unity convention, including when asked in Heb
 
 ## Freshness
 
-The reference files are a **snapshot from 9–10 August 2026**. Answers naming a person, number, picklist value or permission grant carry that caveat; answers purely about mechanism (which flow fires, which object writes what) do not. For the *current* org value rather than the documented one, the skill hands off to [`handbook-refresh`](../handbook-refresh) — it never queries Salesforce itself.
+The reference files are a **snapshot from 9–10 August 2026**. Answers naming a person, number, picklist value or permission grant carry that caveat; answers purely about mechanism (which flow fires, which object writes what) do not. For the *current* org value rather than the documented one, the skill hands off to [`handbook-refresh`](../handbook-refresh); for a mechanism the handbook never carried, to [`handbook-code-lookup`](../handbook-code-lookup). It never queries Salesforce itself.
+
+A reference file may carry a `> **Verified <date>:**` note — a correction confirmed against the org, kept alongside the original text for provenance. Those notes supersede the line above them.
 
 ## Triggers
 
@@ -46,7 +48,7 @@ handbook, process handbook, approver matrix, dispute, credit note, C360, GDRC, p
 
 ## Boundary
 
-Answers from the handbook only. Org verification and reference-file updates are [`handbook-refresh`](../handbook-refresh). Designing automation, reviewing Flow XML and writing PRDs belong to the `unity-bsa` plugin; SOX controls belong to `unity-sox`; outbound stakeholder comms belong to `unity-comms`.
+Answers from the handbook only. Org verification and reference-file updates are [`handbook-refresh`](../handbook-refresh); mechanisms that live in Apex or a scheduled job — batch run times, hardcoded thresholds — are [`handbook-code-lookup`](../handbook-code-lookup). Designing automation, reviewing Flow XML and writing PRDs belong to the `unity-bsa` plugin; SOX controls belong to `unity-sox`; outbound stakeholder comms belong to `unity-comms`.
 
 ## References
 

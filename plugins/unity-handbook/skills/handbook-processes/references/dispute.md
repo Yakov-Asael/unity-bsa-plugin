@@ -92,6 +92,15 @@ Twenty-eight active flows. Three do most of the work and cause most of the incid
 
 **Live issue:** PE_Deduct_Add_dispute_to_invoice_or_bill — the flow that applies disputes flagged "waiting for next invoice/bill" — is INACTIVE in the org. Confirm this is intentional before promising anyone their dispute will attach next cycle.
 
+> **Verified 17 August 2026:** the flow is indeed inactive (`FlowDefinitionView.IsActive = false`), but it is **not the only path** — two scheduled Apex jobs do this work and are live (`State = WAITING`), both in Asia/Jerusalem:
+>
+> | Job | Cron | Runs |
+> |---|---|---|
+> | `Attach to next invoice` | `0 0 20 2 */1 ?` | 2nd of each month, 20:00 |
+> | `Attach to next bill` | `0 0 20 4 */1 ?` | 4th of each month, 20:00 |
+>
+> Both fired as expected in August 2026 (2 Aug and 4 Aug). So attachment on the next cycle *does* happen on a schedule, and the warning above overstates the problem — treat the inactive flow as one disabled route rather than as "nothing will attach". Confirm the current schedule with `handbook-code-lookup` before quoting these dates to anyone, since cron entries are org configuration and can be paused or changed without a code change.
+
 # 4. Validation rules — what blocks users and why
 
 | **Rule** | **What it blocks** | **Error the user sees** | **Why it exists** |

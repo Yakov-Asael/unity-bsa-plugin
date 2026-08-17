@@ -11,6 +11,7 @@ Unity's **BSA Process Handbook for Salesforce**. Twelve load-bearing processes w
 - **Contradictions surfaced, not resolved.** Where the source states a value two ways, both are given, flagged as disagreeing, and sent to the org to confirm.
 - **Freshness is explicit.** Answers naming a person, number, picklist value or permission grant carry the August 2026 snapshot caveat.
 - **Kept current by design.** A second skill verifies documented claims against production and proposes reference-file edits, on a documented cadence — see [Staying current](#staying-current).
+- **Reaches past the document when it has to.** Some mechanisms were never written down because they live in Apex or a scheduled job. Rather than guessing, a third skill reads the deployed code and cites it — see [When the answer is in the code](#when-the-answer-is-in-the-code).
 
 ## Skills
 
@@ -18,6 +19,7 @@ Unity's **BSA Process Handbook for Salesforce**. Twelve load-bearing processes w
 | --- | --- |
 | [`handbook-processes`](./skills/handbook-processes) | Answers questions about the twelve processes — how one works, why it broke, who approves what, who owns it now. Routes each question to exactly one reference file, reproduces values verbatim, and surfaces the tab's known gaps and live issues. |
 | [`handbook-refresh`](./skills/handbook-refresh) | Verifies handbook claims against the live Salesforce org (read-only) and produces a drift report with proposed reference-file edits. Tiers each claim by what is actually checkable, and refuses to declare drift from a single query. |
+| [`handbook-code-lookup`](./skills/handbook-code-lookup) | Answers questions whose answer lives in Apex rather than the handbook — batch run times and cron schedules, what a class does, hardcoded thresholds, why an automation didn't fire. Reads deployed source from the org (read-only) and cites it; optionally consults the `SFDC-IS` repo for git history and flow XML. |
 
 ## What it covers
 
@@ -40,6 +42,16 @@ The handbook is a **snapshot from 9–10 August 2026**, and Salesforce configura
 The `handbook-refresh` skill runs the verification and drafts the edits; a human reviews and merges them through the normal repo flow. Precedence when sources disagree: **the org → the repo's reference files → the source Google Doc**. The repo is what ships, so a correction made only in the doc changes nothing for users.
 
 Full process, cadence table and definition of done: [`docs/handbook-maintenance.md`](../../docs/handbook-maintenance.md) and the skill's [`refresh-runbook.md`](./skills/handbook-refresh/references/refresh-runbook.md).
+
+## When the answer is in the code
+
+The handbook is prose written by a human, so it carries what a human thought to write down. Some things were never in it — batch run times, hardcoded thresholds, the precise reason an automation didn't fire — because they only ever existed in Apex or in a scheduled job's cron expression.
+
+Asked *"when does the next bill/invoice cycle attach to invoices and bills?"*, a handbook-only answer is a guess: the tab describes the "waiting for next invoice/bill" flag and links a document about the batch, but states no times. `handbook-code-lookup` reads the deployed source instead and finds them — `Attach to next invoice` on the 2nd of each month at 20:00, `Attach to next bill` on the 4th, both Asia/Jerusalem, both live.
+
+It also caught a **misleading warning**: the Dispute tab says the flow that applies these disputes is inactive and warns against promising anyone their dispute will attach. The flow is inactive — but those two scheduled jobs do the work and are running. The reference file now carries a `> **Verified:**` correction alongside the original text.
+
+Deployed Apex, triggers and schedules are all read from the org. The `SFDC-IS` repository adds git history, review context and **flow XML** — which would make the approval thresholds machine-checkable, the biggest remaining gap. It's an internal host, so it works from local sessions on the Unity network but is blocked from managed remote sessions; the skill degrades honestly and says so.
 
 ## Boundaries
 
