@@ -1,0 +1,33 @@
+{
+  "name": "unity-handbook",
+  "version": "0.1.0",
+  "description": "Unity BSA Process Handbook for Salesforce: answers questions about the twelve documented processes (Dispute, Handover, Connect 360, GDRC, Credit Check, Customer Community, Knowledge, CSAT, Deals, Pipeline Summary, GPS, Bills/Invoice Sync) strictly from the handbook, and verifies it against the live org so it stays current.",
+  "author": { "name": "Unity Business Systems" },
+  "homepage": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
+  "repository": "https://github.com/Yakov-Asael/unity-bsa-marketplace",
+  "keywords": [
+    "salesforce",
+    "handbook",
+    "process-documentation",
+    "business-systems",
+    "dispute",
+    "invoice",
+    "billing",
+    "approver-matrix",
+    "connect-360",
+    "credit-check",
+    "customer-community",
+    "experience-cloud",
+    "knowledge",
+    "csat",
+    "deals",
+    "deal-desk",
+    "pipeline-summary",
+    "crma",
+    "gps",
+    "opportunity-split",
+    "workday-sync",
+    "handover",
+    "drift-check"
+  ]
+}
