@@ -1,6 +1,6 @@
 # Contributing to the Unity BSA Marketplace
 
-Welcome. This repo hosts the **`unity-bsa`** plugin and its skills. Anyone on the team can build new skills (or improve existing ones) — but everything ships through a reviewed flow, and **only the maintainer releases to production**.
+Welcome. This repo hosts the team's plugins — **`unity-bsa`**, **`unity-sox`** and **`unity-handbook`** — and their skills. Anyone on the team can build new skills (or improve existing ones) — but everything ships through a reviewed flow, and **only the maintainer releases to production**.
 
 > New here? Read the **[Skill & Plugin Creator Guide](./docs/skill-creator-guide.md)** first — it explains what a good skill/plugin looks like and the mandatory build process.
 
@@ -36,6 +36,14 @@ Welcome. This repo hosts the **`unity-bsa`** plugin and its skills. Anyone on th
 - **Update the plugin README.** When you add a skill, add its row to the plugin's `README.md` skills table. **CI fails if you don't.**
 - **Follow Unity conventions:** respond in English; plan → self-review → end with a Next Step; the palette (`#2196F3` / `#0F61A3` / `#141514`); *fit the use case, don't force the template*; respect skill **boundaries** (don't overlap another skill's job).
 - **No `WIP` markers** on a skill you're shipping as active.
+
+## Keeping documented content current
+
+Most skills here encode a **standard** (a template, a ruleset, a review bar) — those change slowly and deliberately. `unity-handbook` is different: it documents **the current state of twelve production Salesforce processes**, so it decays every time someone deploys, silently, while its answers stay confident.
+
+**If your change touches Dispute, Handover, Connect 360, GDRC, Credit Check, Customer Community, Knowledge, CSAT, Deals, Pipeline Summary, GPS or Bills/Invoice Sync — update that process's reference file in the same PR.** Scheduled verification sweeps are a safety net for what this rule misses, not a replacement for it.
+
+Full policy — ownership, cadence, source-of-truth precedence, and what "verified" is allowed to mean: **[Handbook Maintenance Policy](./docs/handbook-maintenance.md)**.
 
 ## Local checks
 
