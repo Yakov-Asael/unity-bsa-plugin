@@ -149,5 +149,6 @@ Spot-checks run while building this skill, recorded as the baseline for the next
 | Person | State | Why it is expected |
 |---|---|---|
 | Dror Diamant | Two active User records | Confirmed by the handbook owner: **employed until 10 September 2026.** Active is correct until then. |
+| `Bill_Feedback Daily @02:00`, `Invoice feedback from NS Daily @02:00`, `FN Bill Generate statement Monthly 10:00`, `FN Generate Bill Statement Net30 2200` | `PAUSED`, last fired Nov–Dec 2025 | Confirmed by the handbook owner: paused deliberately at the **NetSuite → Workday** finance-integration cutover. Legacy NetSuite-side jobs; the 2025 fire times mark the migration, not an outage. |
 
 **After 10 September 2026** this flips: if Dror Diamant's User records are still active, that *is* a finding — raise it with the SOX access-review owner, and expect every tab's `Technical owner: Dror Diamant → <successor>` line to need its outgoing half retired. Re-check this row on the first refresh after that date and update or remove it; a stale exception list is how a real exception gets waved through.

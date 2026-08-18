@@ -92,7 +92,13 @@ LIMIT 40
 | `FN Bill Generate statement Monthly 10:00` | `0 0 12 10 */1 ?` | Asia/Jerusalem | **PAUSED** | Not running; last fired Dec 2025 |
 | `FN Generate Bill Statement Net30 2200` | `0 0 12 22 */1 ?` | Asia/Jerusalem | **PAUSED** | Not running; last fired Dec 2025 |
 
-The paused jobs are worth raising with the Bills/Invoice owner — four finance-adjacent jobs silently off since late 2025 is either intentional decommissioning that no document records, or a gap.
+### The paused jobs are intentional — do not re-raise them
+
+Confirmed by the handbook owner: the four `PAUSED` jobs above were paused deliberately when the finance integration moved **from NetSuite to Workday**. They are legacy NetSuite-side jobs, which is why two of them carry `NS` in the name (`Invoice feedback from NS Daily @02:00`, `Bill_Feedback Daily @02:00`). Their last fire times in Nov–Dec 2025 mark the cutover, not an outage.
+
+This is consistent with what `bills-invoice-sync.md` already documents: Workday is the current finance system, and NetSuite appears only as migration residue — accounts never migrated, bills carrying a stale NetSuite Id in the Workday Id field, and an error-log template still saying NetSuite when the batch calls a Workato recipe.
+
+So: **a `PAUSED` state is not automatically a finding.** Check whether the job belongs to a superseded integration before reporting it. Genuinely unexplained paused jobs are still worth surfacing — the test is whether a decommission explains it, not whether the state looks alarming.
 
 ## 4. Flows
 
